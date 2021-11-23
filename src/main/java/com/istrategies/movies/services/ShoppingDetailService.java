@@ -27,7 +27,8 @@ public class ShoppingDetailService {
 	}
 	
 	public boolean isEmptyByID(int id_shopping_detail) {
-		return shoppingDetailRepository.findById(id_shopping_detail).isEmpty();
+		return true;
+		//return shoppingDetailRepository.findById(id_shopping_detail).isEmpty();
 	}
 	
 	public List<Object> getAllShopping(){

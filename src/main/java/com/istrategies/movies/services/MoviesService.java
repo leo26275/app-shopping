@@ -26,7 +26,8 @@ public class MoviesService  {
 	}
 	
 	public boolean isEmptyByID(int id_movies) {
-		return moviesRepository.findById(id_movies).isEmpty();
+		return true;
+		//return moviesRepository.findById(id_movies).isEmpty();
 	}
 	
 	public Movie getMovieByID(int id_movies) {

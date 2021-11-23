@@ -19,7 +19,8 @@ public class ReactionService {
 	}
 	
 	public boolean isEmptyById(int id_reaction) {
-		return reactionRepository.findById(id_reaction).isEmpty();
+		return true;
+		//return reactionRepository.findById(id_reaction).isEmpty();
 	}
 	
 	public Reaction findById(int id_reaction) {

@@ -27,7 +27,8 @@ public class UsersService {
 	}
 	
 	public boolean isEmptyByID(int id_users) {
-		return userRepository.findById(id_users).isEmpty();
+		return true;
+		//return userRepository.findById(id_users).isEmpty();
 	}
 	
 }

@@ -27,6 +27,7 @@ public class ShoppingService {
 	}
 	
 	public boolean isEmptyByID(int id_shopping) {
-		return shoppingRepository.findById(id_shopping).isEmpty();
+		return true;
+		//return shoppingRepository.findById(id_shopping).isEmpty();
 	}
 }
