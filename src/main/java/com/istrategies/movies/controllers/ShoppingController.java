@@ -20,7 +20,6 @@ import com.istrategies.movies.services.UsersService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/shopping")
@@ -43,7 +42,8 @@ public class ShoppingController {
 	public ResponseEntity<Object> Guardar(@RequestBody() List<ShoppingDetail> detail, @PathVariable("id_users") int id_users){
 		
 		if(detail.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("message", "Seleccione las peliculas"));
+			return new ResponseEntity<>(HttpStatus.FOUND); 
+			//return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("message", "Seleccione las peliculas"));
 		}else {
 			Shopping shopp = new Shopping();
 			User use = userService.findBy(id_users);
