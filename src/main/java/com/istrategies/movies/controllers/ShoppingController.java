@@ -57,7 +57,8 @@ public class ShoppingController {
 			}
 			shoppingDetailService.create(detail);
 			
-			 return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Se ha agregado la pelicula"));
+			return new ResponseEntity<>(HttpStatus.CREATED); 
+			//return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Se ha agregado la pelicula"));
 		}
 	}
 	

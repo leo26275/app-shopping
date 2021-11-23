@@ -1,7 +1,5 @@
 package com.istrategies.movies.controllers;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +23,11 @@ public class UpdateController {
 		//user.setState(true);
 		Update use = updateService.create(update);
 		if(use != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("mensaje",  "Se creo el usuario con exito"));
+			return new ResponseEntity<>(HttpStatus.CREATED);
+			//return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("mensaje",  "Se creo el usuario con exito"));
 		}else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("mensaje", "Ha ocurrido un error"));
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			//return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("mensaje", "Ha ocurrido un error"));
 		}
 	}
 	

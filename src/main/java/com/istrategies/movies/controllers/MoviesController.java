@@ -13,19 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.istrategies.movies.models.Movie;
-import com.istrategies.movies.models.Update;
 import com.istrategies.movies.models.User;
 import com.istrategies.movies.services.MoviesService;
-import com.istrategies.movies.services.UpdateService;
 import com.istrategies.movies.services.UsersService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.net.ssl.SSLEngineResult.Status;
-import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("api/v1/movie")
@@ -33,9 +26,6 @@ public class MoviesController {
 	
 	@Autowired
 	private MoviesService moviesService;
-	
-	@Autowired
-	private UpdateService updateService;
 	
 	@Autowired
 	private UsersService usersService;
@@ -57,9 +47,11 @@ public class MoviesController {
 		movies.setAvailability(true);
 		Movie mov = moviesService.create(movies);
 		if(mov != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Se ha agregado la pelicula"));
+			return new ResponseEntity<>(HttpStatus.CREATED);
+			//return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Se ha agregado la pelicula"));
 		}else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "No se creo la pelicula"));
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "No se creo la pelicula"));
 		}	
 	}
 	
@@ -70,9 +62,11 @@ public class MoviesController {
 
 		if(!mov) {
 			moviesService.delete(id_movies);
-			return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Se elimino la pelicula"));
+			return new ResponseEntity<>(HttpStatus.OK);
+			//return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Se elimino la pelicula"));
 		}else {
-			return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("message", "El id no existe"));
+			return new ResponseEntity<>(HttpStatus.FOUND);
+			//return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("message", "El id no existe"));
 		}
 	}
 	
@@ -82,7 +76,8 @@ public class MoviesController {
 		boolean mov = moviesService.isEmptyByID(id_movies);
 		
 		if(mov) {
-			return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("message", "Ocurrio un error"));
+			return new ResponseEntity<>(HttpStatus.FOUND);
+			//return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("message", "Ocurrio un error"));
 		}
 		
 		Movie newMovies = moviesService.findBy(id_movies);
@@ -96,7 +91,8 @@ public class MoviesController {
 		newMovies.setNameimage(movies.getNameimage());
 		
 		moviesService.create(newMovies);
-		return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Se edito la pelicula"));
+		return new ResponseEntity<>(HttpStatus.OK);
+		//return ResponseEntity.status(HttpStatus.OK).body(Map.of("message", "Se edito la pelicula"));
 	}
 	
 	@PutMapping("/{id_movies}/{id_users}")
@@ -105,7 +101,8 @@ public class MoviesController {
 		boolean movi = moviesService.isEmptyByID(id_movies);
 		
 		if(use == true || movi == true) {
-			return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));	
+			return new ResponseEntity<>(HttpStatus.OK);
+			//return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));	
 		}else {		
 			User user = usersService.findBy(id_users);		
 			if(user.isRol() == true) {			
@@ -113,15 +110,18 @@ public class MoviesController {
 				if(mov.isAvailability()==true) {
 					mov.setAvailability(false);
 					moviesService.create(mov);
-					return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Se deshabilito la pelicula"));
+					return new ResponseEntity<>(HttpStatus.OK);
+					//return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Se deshabilito la pelicula"));
 				}else {
 					mov.setAvailability(true);
 					moviesService.create(mov);
-					return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Se habilito la pelicula"));
+					return new ResponseEntity<>(HttpStatus.OK);
+					//return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Se habilito la pelicula"));
 				}			
 			}
 		}
-		return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));	
+		return new ResponseEntity<>(HttpStatus.FOUND);
+		//return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));	
 	}
 
 	@GetMapping("/{availability}/{id_users}")

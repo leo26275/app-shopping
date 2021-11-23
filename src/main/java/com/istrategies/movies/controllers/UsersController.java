@@ -2,7 +2,6 @@ package com.istrategies.movies.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,9 +41,11 @@ public class UsersController {
 		user.setState(true);
 		User use = usersService.create(user);
 		if(use != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("mensaje",  "Se creo el usuario con exito"));
+			return new ResponseEntity<>(HttpStatus.CREATED);
+			//return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("mensaje",  "Se creo el usuario con exito"));
 		}else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("mensaje", "Ha ocurrido un error"));
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			//return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("mensaje", "Ha ocurrido un error"));
 		}
 	}
 	
@@ -53,7 +54,8 @@ public class UsersController {
 		boolean use = usersService.isEmptyByID(id_users);
 		
 		if(use) {
-			return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));
+			return new ResponseEntity<>(HttpStatus.FOUND);
+			//return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));
 		}
 		
 		User newUser = usersService.findBy(id_users);
@@ -61,11 +63,13 @@ public class UsersController {
 		if(newUser.isState() == true) {
 			newUser.setState(false);
 			usersService.create(newUser);
-			return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Usuario desabilitado"));
+			return new ResponseEntity<>(HttpStatus.OK);
+			//return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Usuario desabilitado"));
 		}else {
 			newUser.setState(true);
 			usersService.create(newUser);
-			return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Usuario habilitado"));
+			return new ResponseEntity<>(HttpStatus.OK);
+			//return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Usuario habilitado"));
 		}
 	}
 	
@@ -74,7 +78,8 @@ public class UsersController {
 		boolean use = usersService.isEmptyByID(id_users);
 		
 		if(use) {
-			return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));
+			return new ResponseEntity<>(HttpStatus.FOUND);
+			//return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));
 		}
 		
 		User newUser = usersService.findBy(id_users);
@@ -84,7 +89,8 @@ public class UsersController {
 		newUser.setRol(user.isRol());
 		
 		usersService.create(newUser);
-		return ResponseEntity.status(HttpStatus.OK).body(Map.of("Mensaje", "Se edito el usuario"));
+		return new ResponseEntity<>(HttpStatus.OK);
+		//return ResponseEntity.status(HttpStatus.OK).body(Map.of("Mensaje", "Se edito el usuario"));
 		
 	}
 	

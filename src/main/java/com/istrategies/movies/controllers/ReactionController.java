@@ -2,9 +2,7 @@ package com.istrategies.movies.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.istrategies.movies.models.Movie;
 import com.istrategies.movies.models.Reaction;
 import com.istrategies.movies.services.MoviesService;
 import com.istrategies.movies.services.ReactionService;
@@ -45,9 +41,11 @@ public class ReactionController {
 		Reaction reac = reactionService.create(reaction);
 		
 		if(reac != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("mensaje", "like"));
+			return new ResponseEntity<>(HttpStatus.CREATED);
+			//return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("mensaje", "like"));
 		}else {
-			return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));
+			return new ResponseEntity<>(HttpStatus.FOUND);
+			//return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));
 		}
 	}
 	
@@ -56,18 +54,21 @@ public class ReactionController {
 		boolean reac = reactionService.isEmptyById(id_reaction);
 		
 		if(reac) {
-			return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));
+			return new ResponseEntity<>(HttpStatus.FOUND);
+			//return ResponseEntity.status(HttpStatus.FOUND).body(Map.of("mensaje", "Ocurrio un error"));
 		}
 		
 		Reaction newReaction = reactionService.findById(id_reaction);
 		if(newReaction.isReaction()==true) {
 			newReaction.setReaction(false);
 			reactionService.create(newReaction);
-			return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Dislike"));
+			return new ResponseEntity<>(HttpStatus.OK);
+			//return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Dislike"));
 		}else {
 			newReaction.setReaction(true);
 			reactionService.create(newReaction);
-			return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Like"));
+			return new ResponseEntity<>(HttpStatus.OK);
+			//return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", "Like"));
 		}
 	}
 	

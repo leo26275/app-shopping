@@ -1,6 +1,5 @@
 package com.istrategies.movies.services;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

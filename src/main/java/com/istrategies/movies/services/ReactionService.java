@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.istrategies.movies.models.Movie;
 import com.istrategies.movies.models.Reaction;
 import com.istrategies.movies.repositories.ReactionRepository;
 
